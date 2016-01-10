@@ -3,6 +3,8 @@ install.packages("dplyr")
 library(dplyr)
 library(xlsx)
 
+setwd("~/Desktop/Machine-Learning")
+
 #read data
 mydata1 <- read.xlsx("ADDS1.xlsx", header=TRUE,sheetIndex = 1)
 mydatadf1<-data.frame(mydata1)
@@ -12,6 +14,7 @@ mydatadf2<-data.frame(mydata2)
 
 mydata <- read.xlsx("ADDS3.xlsx", header=TRUE,sheetIndex = 1)
 mydata4 <- read.xlsx("ADDS4.xlsx", header=TRUE,sheetIndex = 1)
+
 par(mar = rep(2, 4)) #resize
 plot(mydata$Old, mydata$Object_Target_T2) #plot
 
@@ -24,11 +27,19 @@ plot(mydata$Old, mydata$Object_Target_T2) #plot
 # identify(mydatadf1)
 
 set.seed(2)
-#clustering
+#clustering 2 variables
 km.out2=kmeans(mydatadf2,2,nstart=20)
 km.out2$cluster
+km.out2$size
 plot(mydatadf2,col=(km.out2$cluster+1),main="K-Mean Clustering of ERP Old & ET Old Results with K=2",xlab="",ylab="",pch=20,cex=2)
 identify(mydatadf2)
+
+set.seed(2)
+#clustering multiple variables
+km.out1=kmeans(mydatadf1,2,nstart=20)
+km.out1$cluster
+plot(mydatadf1,col=(km.out1$cluster+1),main="K-Mean Clustering with 9 selected variables of interest K=2",pch=20,cex=2)
+identify(mydatadf1)
 
 ########## not so important
 set.seed(2)
